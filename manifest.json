@@ -1,0 +1,24 @@
+{
+  "manifest_version": 2,
+  "name": "GPT Corrector",
+  "version": "0.0.1",
+  "description": "Correct your typing by AI (chatGPT)",
+  "icons": {
+    "48": "icons/icon_48.png",
+    "64": "icons/icon_64.png"
+  },
+  "permissions": ["contextMenus", "activeTab", "storage"],
+  "options_ui": {
+    "page": "options.html",
+    "browser_style": true
+  },
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ]
+}
