@@ -1,5 +1,23 @@
-browser.runtime.onMessage.addListener(({ trigger, content }) => {
-  if (trigger === "replace_text") {
+let gptCorrector = browser.runtime.connect({
+  name: "{ee191ec1-3407-451c-95db-2196479bd035}",
+});
+
+browser.storage.sync
+  .get("configKey")
+  .then((result) => {
+    if (result.configKey) {
+      gptCorrector.postMessage({
+        event: "set_api_key",
+        configKey: result.configKey,
+      });
+    }
+  })
+  .catch((error) => {
+    console.error("Error retrieving config key:", error);
+  });
+
+gptCorrector.onMessage.addListener(({ event, content }) => {
+  if (event === "replace_text") {
     replaceSelectedTextWithAPIResponse(content);
   }
 });

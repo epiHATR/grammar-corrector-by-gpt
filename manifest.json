@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "GPT Corrector",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Correct your typing by AI (chatGPT)",
   "icons": {
     "48": "icons/icon_48.png",
@@ -11,6 +11,11 @@
   "options_ui": {
     "page": "options.html",
     "browser_style": true
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{ee191ec1-3407-451c-95db-2196479bd035}"
+    }
   },
   "background": {
     "scripts": ["background.js"]

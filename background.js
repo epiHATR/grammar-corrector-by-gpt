@@ -1,3 +1,8 @@
+let contentScript;
+let configKey = "";
+
+browser.runtime.onConnect.addListener(connected);
+
 // create context menu
 browser.contextMenus.create({
   id: "gpt-correct-grammar",
@@ -5,28 +10,22 @@ browser.contextMenus.create({
   contexts: ["selection"],
 });
 
-let configKey = "";
-
-// Load configKey when options/configuration page is loaded
-browser.storage.local
-  .get("configKey")
-  .then((result) => {
-    configKey = result.configKey || "default_key";
-  })
-  .catch((error) => {
-    console.error("Error retrieving configKey:", error);
-  });
-
 // add action listener
 browser.contextMenus.onClicked.addListener((info, tab) => {
   if (info.menuItemId === "gpt-correct-grammar") {
-    if (!configKey || configKey === "default_key") {
-      alert("OpenAI API key not found!");
-      return;
-    }
     contextMenuAction(info, tab, configKey);
   }
 });
+
+function connected(p) {
+  contentScript = p;
+
+  contentScript.onMessage.addListener((m) => {
+    if (m.event === "set_api_key") {
+      configKey = m.configKey;
+    }
+  });
+}
 
 async function contextMenuAction(info, tab, configKey) {
   try {
@@ -58,10 +57,7 @@ async function contextMenuAction(info, tab, configKey) {
 
     const data = await response.json();
     const resText = data.choices[0].message.content;
-    browser.tabs.sendMessage(tab.id, {
-      trigger: "replace_text",
-      content: resText,
-    });
+    contentScript.postMessage({ event: "replace_text", content: resText });
   } catch (error) {
     console.error("Error:", error);
   }

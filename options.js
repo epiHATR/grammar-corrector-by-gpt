@@ -5,22 +5,16 @@ document.addEventListener("DOMContentLoaded", function () {
   saveConfigBtn.addEventListener("click", function () {
     const configKey = configKeyInput.value.trim();
     if (configKey !== "") {
-      browser.storage.local
-        .set({ configKey: configKey })
-        .then(() => {
-          alert("Configuration key saved successfully!");
-        })
-        .catch((error) => {
-          console.error("Error saving config key:", error);
-          alert("Error saving configuration key! Please try again.");
-        });
+      browser.storage.sync.set({
+        configKey: configKey,
+      });
+      alert("OpenAI API key was saved successfully");
     } else {
       alert("Please enter a valid configuration key!");
     }
   });
 
-  // Retrieve and pre-fill saved config key
-  browser.storage.local
+  browser.storage.sync
     .get("configKey")
     .then((result) => {
       if (result.configKey) {
