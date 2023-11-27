@@ -3,12 +3,13 @@ let gptCorrector = browser.runtime.connect({
 });
 
 browser.storage.sync
-  .get("configKey")
+  .get(["configKey","selectedModel"])
   .then((result) => {
     if (result.configKey) {
       gptCorrector.postMessage({
         event: "set_api_key",
         configKey: result.configKey,
+        selectedModel: result.selectedModel
       });
     }
   })

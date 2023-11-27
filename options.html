@@ -5,7 +5,7 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      padding: 20px;
+      height: 500px;
     }
     h1 {
       margin-bottom: 20px;
@@ -19,6 +19,7 @@
       padding: 8px;
       font-size: 16px;
       margin-bottom: 15px;
+      margin-top: 20px;
     }
     button {
       padding: 10px 20px;
@@ -28,7 +29,16 @@
       color: white;
       border: none;
       border-radius: 4px;
+      width: 250px;
     }
+
+    select {
+      width: 300px;
+      padding: 8px;
+      font-size: 16px;
+      margin-bottom: 15px;
+    }
+
     button:hover {
       background-color: #45a049;
     }
@@ -37,7 +47,14 @@
 <body>
   <h1>GPT Corrector Configuration</h1>
   <label for="configKeyInput">OpenAI API Key:</label>
-  <input type="password" id="configKeyInput">
+  <input type="password" id="configKeyInput" />
+  <label for="modelSelect">Select Model:</label>
+  <select id="modelSelect">
+    <option value="text-davinci-003">text-davinci-003</option>
+    <option value="gpt-3.5-turbo">gpt-3.5-turbo</option>
+    <option value="gpt-3.5-turbo-1106">gpt-3.5-turbo-1106</option>
+    <option value="gpt-4">gpt-4</option>
+  </select>
   <button id="saveConfigBtn">Save Configuration</button>
   <script src="options.js"></script>
 </body>

@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "GPT Corrector",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Correct your typing by AI (chatGPT)",
   "icons": {
     "48": "icons/icon_48.png",
@@ -18,7 +18,7 @@
     }
   },
   "background": {
-    "scripts": ["background.js"]
+    "scripts": ["background.js", "modules/openAI.js", "modules/apiRequest.js"]
   },
   "content_scripts": [
     {
